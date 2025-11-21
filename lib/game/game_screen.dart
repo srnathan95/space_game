@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:lottie/lottie.dart';
 import 'rocket.dart';
 import 'asteroid.dart';
 import 'bullet.dart';
@@ -290,11 +291,13 @@ class _SpaceGameState extends State<SpaceGame> {
 
   Widget _buildRocket(Size screenSize) {
     return Positioned(
-      left: _rocket.position * screenSize.width - 30,
-      top: screenSize.height - 180,
-      child: CustomPaint(
-        size: const Size(60, 50),
-        painter: RocketPainter(),
+      left: _rocket.position * screenSize.width - 60,
+      top: screenSize.height - 280,
+      child: Lottie.asset(
+        'assets/animations/Rocket Lunch.json',
+        width: 120,
+        height: 100,
+        fit: BoxFit.contain,
       ),
     );
   }
@@ -354,7 +357,7 @@ class _SpaceGameState extends State<SpaceGame> {
         // Left button - positioned at left edge
         Positioned(
           left: 20,
-          bottom: 30,
+          bottom: 60,
           child: GestureDetector(
             onTapDown: (_) => _moveRocketLeft(),
             onTapCancel: () {},
@@ -382,7 +385,7 @@ class _SpaceGameState extends State<SpaceGame> {
         // Right button - positioned at right edge
         Positioned(
           right: 20,
-          bottom: 30,
+          bottom: 60,
           child: GestureDetector(
             onTapDown: (_) => _moveRocketRight(),
             onTapCancel: () {},
