@@ -37,6 +37,9 @@ class _SpaceGameState extends State<SpaceGame> {
   // Background scroll
   double _backgroundOffset = 0.0;
 
+  // Screen size for collision detection
+  Size? _screenSize;
+
   @override
   void initState() {
     super.initState();
@@ -134,35 +137,45 @@ class _SpaceGameState extends State<SpaceGame> {
     }
 
     // Update bullets
-    _bullets.removeWhere((bullet) {
+    for (var bullet in _bullets) {
       bullet.update(deltaTime);
-      return bullet.isOffScreen();
-    });
+    }
 
-    // Update asteroids
-    List<Asteroid> toRemove = [];
+    // Remove bullets that are off screen
+    _bullets.removeWhere((bullet) => bullet.isOffScreen());
+
+    // Update asteroids and check collisions
+    List<Asteroid> asteroidsToRemove = [];
+    List<Bullet> bulletsToRemove = [];
+
     for (var asteroid in _asteroids) {
       asteroid.update(deltaTime);
 
       // Check if asteroid reached bottom - just remove it (no game over)
       if (asteroid.y > 1.0) {
-        toRemove.add(asteroid);
+        asteroidsToRemove.add(asteroid);
         continue;
       }
 
       // Check collision with bullets
       for (var bullet in _bullets) {
-        if (_checkCollision(asteroid, bullet)) {
-          toRemove.add(asteroid);
-          _bullets.remove(bullet);
+        // Skip if bullet is already marked for removal
+        if (bulletsToRemove.contains(bullet)) continue;
+
+        if (_checkCollision(asteroid, bullet, _screenSize)) {
+          asteroidsToRemove.add(asteroid);
+          bulletsToRemove.add(bullet);
           setState(() {
             _score += 1; // Increment score for each asteroid shot
           });
-          break;
+          break; // One bullet can only destroy one asteroid
         }
       }
     }
-    _asteroids.removeWhere((asteroid) => toRemove.contains(asteroid));
+
+    // Remove destroyed asteroids and bullets
+    _asteroids.removeWhere((asteroid) => asteroidsToRemove.contains(asteroid));
+    _bullets.removeWhere((bullet) => bulletsToRemove.contains(bullet));
 
     setState(() {});
   }
@@ -179,11 +192,37 @@ class _SpaceGameState extends State<SpaceGame> {
     _asteroids.add(Asteroid.random(speedMultiplier));
   }
 
-  bool _checkCollision(Asteroid asteroid, Bullet bullet) {
-    // Bigger asteroids = bigger hit area
-    return asteroid.y < bullet.y + GameConfig.collisionThreshold &&
-        asteroid.y > bullet.y - GameConfig.collisionThreshold &&
-        (asteroid.x - bullet.x).abs() < GameConfig.collisionThreshold;
+  bool _checkCollision(Asteroid asteroid, Bullet bullet, Size? screenSize) {
+    if (screenSize == null) {
+      // Fallback to generous threshold if screen size not available
+      final dx = (asteroid.x - bullet.x).abs();
+      final dy = (asteroid.y - bullet.y).abs();
+      return dx < 0.12 && dy < 0.12;
+    }
+
+    // Calculate actual pixel positions
+    // Asteroid center: (asteroid.x * screenSize.width, asteroid.y * screenSize.height)
+    // Asteroid size: 120x120, so radius is 60px
+    // Bullet center: (bullet.x * screenSize.width, bullet.y * screenSize.height)
+    // Bullet size: 6x15, so half-width is 3px, half-height is 7.5px
+
+    final asteroidCenterX = asteroid.x * screenSize.width;
+    final asteroidCenterY = asteroid.y * screenSize.height;
+    final bulletCenterX = bullet.x * screenSize.width;
+    final bulletCenterY = bullet.y * screenSize.height;
+
+    // Calculate distance in pixels
+    final dx = (asteroidCenterX - bulletCenterX).abs();
+    final dy = (asteroidCenterY - bulletCenterY).abs();
+
+    // Asteroid radius: 60px, Bullet half-size: max(3, 7.5) = 7.5px
+    // Collision if distance < (60 + 7.5) = 67.5px
+    final asteroidRadius = 60.0;
+    final bulletRadius = 7.5;
+    final collisionDistance = asteroidRadius + bulletRadius;
+
+    // Check if bullet is within collision distance
+    return dx < collisionDistance && dy < collisionDistance;
   }
 
   void _moveRocketLeft() {
@@ -223,6 +262,7 @@ class _SpaceGameState extends State<SpaceGame> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    _screenSize = screenSize; // Store screen size for collision detection
 
     return Scaffold(
       appBar: AppBar(
@@ -306,21 +346,11 @@ class _SpaceGameState extends State<SpaceGame> {
     return Positioned(
       left: asteroid.x * screenSize.width - 30,
       top: asteroid.y * screenSize.height - 30,
-      child: Container(
-        width: 60,
-        height: 60,
-        decoration: BoxDecoration(
-          color: Colors.grey[700],
-          shape: BoxShape.circle,
-          border: Border.all(color: Colors.grey[800]!, width: 3),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey[900]!.withOpacity(0.5),
-              blurRadius: 8,
-              spreadRadius: 2,
-            ),
-          ],
-        ),
+      child: Image.asset(
+        'assets/asteroid.png',
+        width: 120,
+        height: 120,
+        fit: BoxFit.contain,
       ),
     );
   }
