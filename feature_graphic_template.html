@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Game Feature Graphic</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #000;
+        }
+        
+        .feature-graphic {
+            width: 1024px;
+            height: 500px;
+            background: linear-gradient(to bottom, #000428 0%, #000000 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Starfield */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        
+        .star.small { width: 2px; height: 2px; }
+        .star.medium { width: 3px; height: 3px; }
+        .star.large { width: 4px; height: 4px; opacity: 1; }
+        
+        /* Title Section */
+        .title-section {
+            width: 40%;
+            padding-left: 60px;
+            z-index: 10;
+        }
+        
+        .title {
+            font-family: 'Arial Black', Arial, sans-serif;
+            font-size: 72px;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8),
+                         0 0 20px rgba(255,255,255,0.3);
+            margin: 0;
+            line-height: 1.1;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            color: #ffaa00;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        /* Gameplay Section */
+        .gameplay-section {
+            width: 60%;
+            height: 100%;
+            position: relative;
+            z-index: 5;
+        }
+        
+        /* Rocket */
+        .rocket {
+            position: absolute;
+            bottom: 100px;
+            left: 200px;
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 60px solid #ffffff;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+        }
+        
+        .rocket::before {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -15px;
+            width: 30px;
+            height: 20px;
+            background: #ff6600;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        
+        /* Asteroids */
+        .asteroid {
+            position: absolute;
+            background: #555555;
+            border-radius: 50%;
+            border: 3px solid #333333;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+        
+        .asteroid.large { width: 70px; height: 70px; top: 50px; right: 150px; }
+        .asteroid.medium { width: 50px; height: 50px; top: 120px; right: 280px; }
+        .asteroid.small { width: 35px; height: 35px; top: 80px; right: 80px; }
+        
+        /* Bullets */
+        .bullet {
+            position: absolute;
+            width: 6px;
+            height: 40px;
+            background: linear-gradient(to bottom, #ffff00 0%, #ff6600 100%);
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(255,255,0,0.8);
+        }
+        
+        .bullet1 { bottom: 160px; left: 215px; }
+        .bullet2 { bottom: 220px; left: 215px; }
+        .bullet3 { bottom: 280px; left: 215px; }
+        
+        /* Explosion effect */
+        .explosion {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #ffaa00 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.7;
+            top: 200px;
+            right: 300px;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 0.4; }
+        }
+        
+        /* Challenge text (optional, subtle) */
+        .challenge {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            color: #ffaa00;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="feature-graphic">
+        <!-- Stars -->
+        <div class="star small" style="top: 10%; left: 15%;"></div>
+        <div class="star medium" style="top: 20%; left: 35%;"></div>
+        <div class="star small" style="top: 15%; left: 55%;"></div>
+        <div class="star large" style="top: 30%; left: 70%;"></div>
+        <div class="star small" style="top: 25%; left: 80%;"></div>
+        <div class="star medium" style="top: 40%; left: 25%;"></div>
+        <div class="star small" style="top: 50%; left: 65%;"></div>
+        <div class="star medium" style="top: 60%; left: 45%;"></div>
+        <div class="star small" style="top: 70%; left: 75%;"></div>
+        <div class="star large" style="top: 80%; left: 30%;"></div>
+        <div class="star small" style="top: 45%; left: 90%;"></div>
+        <div class="star medium" style="top: 35%; left: 10%;"></div>
+        
+        <!-- Title Section -->
+        <div class="title-section">
+            <h1 class="title">SPACE<br>GAME</h1>
+            <div class="subtitle">Arcade Asteroid Shooter</div>
+        </div>
+        
+        <!-- Gameplay Section -->
+        <div class="gameplay-section">
+            <!-- Bullets -->
+            <div class="bullet bullet1"></div>
+            <div class="bullet bullet2"></div>
+            <div class="bullet bullet3"></div>
+            
+            <!-- Explosion -->
+            <div class="explosion"></div>
+            
+            <!-- Asteroids -->
+            <div class="asteroid large"></div>
+            <div class="asteroid medium"></div>
+            <div class="asteroid small"></div>
+            
+            <!-- Rocket -->
+            <div class="rocket"></div>
+            
+            <!-- Challenge Text -->
+            <div class="challenge">Can you reach 21+?</div>
+        </div>
+    </div>
+    
+    <script>
+        // Instructions for screenshot:
+        // 1. Open this HTML file in Chrome or Firefox
+        // 2. Press F12 to open DevTools
+        // 3. Use the device toolbar (Ctrl+Shift+M) or responsive mode
+        // 4. Set viewport to 1024x500 or take a screenshot
+        // 5. Use browser screenshot tools or:
+        //    - Right-click the graphic → Inspect
+        //    - In Elements tab, right-click the .feature-graphic div
+        //    - Choose "Capture node screenshot" (Chrome)
+        
+        console.log('Feature Graphic Template Ready!');
+        console.log('To capture:');
+        console.log('1. Open DevTools (F12)');
+        console.log('2. Use Responsive Mode');
+        console.log('3. Right-click the graphic element and select "Capture node screenshot"');
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+

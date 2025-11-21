@@ -1,0 +1,46 @@
+🚀 SPACE GAME - Arcade Asteroid Shooter
+
+Blast through space in this fast-paced arcade shooter! Control your rocket, automatically fire at falling asteroids, and challenge yourself to beat your high score. With quick 20-second rounds, Space Game is perfect for on-the-go gaming sessions.
+
+🎮 GAMEPLAY:
+- Simple tap controls: Move your rocket left and right
+- Auto-shooting: Your rocket automatically fires bullets at incoming asteroids
+- Score-based: Each asteroid destroyed adds to your score
+- Time challenge: Survive and score as much as you can in 20 seconds
+- Progressive difficulty: Asteroids speed up as time progresses, keeping the action intense
+
+⭐ KEY FEATURES:
+• High Score Tracking: Save and beat your personal best
+• Smooth Performance: Optimized gameplay at 60 FPS
+• Beautiful Starfield Background: Immersive space environment with parallax scrolling
+• Quick Rounds: Perfect for short gaming sessions
+• Easy to Learn: Simple mechanics, hard to master
+• Increasing Challenge: Game gets faster as you progress
+
+🎯 THE CHALLENGE:
+Think you're a space ace? Can you reach 21 points or higher? Many players struggle to break the 20-point barrier. Prove your skills and join the elite few who can master this space shooter!
+
+💫 PERFECT FOR:
+- Quick gaming breaks
+- Score-chasing enthusiasts
+- Classic arcade game lovers
+- Anyone looking for fast-paced action
+
+🔫 HOW TO PLAY:
+1. Tap the left button to move your rocket left
+2. Tap the right button to move your rocket right
+3. Your rocket automatically shoots bullets upward
+4. Destroy asteroids to score points
+5. Survive for 20 seconds and try to beat your high score!
+
+📱 GAME DETAILS:
+- Genre: Arcade / Action
+- Play Style: Quick rounds, score-based
+- Controls: Simple tap controls
+- Difficulty: Progressive (gets harder over time)
+
+Challenge yourself, beat your high score, and see if you have what it takes to reach 21 points in Space Game!
+
+---
+
+Download now and start blasting asteroids in space!

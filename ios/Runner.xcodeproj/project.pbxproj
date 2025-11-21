@@ -1,0 +1,53 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+/* Begin PBXBuildFile section */
+		B1234567890123456789012A /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = B12345678901234567890129 /* GeneratedPluginRegistrant.m */; };
+		B1234567890123456789012B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12345678901234567890128 /* AppDelegate.swift */; };
+		B1234567890123456789012C /* flutter_assets in Resources */ = {isa = PBXBuildFile; fileRef = B12345678901234567890127 /* flutter_assets */; };
+/* End PBXBuildFile section */
+
+		B12345678901234567890122 = {
+			isa = PBXGroup;
+			children = (
+				B12345678901234567890125,
+				B12345678901234567890126,
+				B12345678901234567890121 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B12345678901234567890123 = {
+			isa = PBXGroup;
+			children = (
+				B12345678901234567890124,
+			);
+			path = Runner;
+			sourceTree = "<group>";
+		};
+		B12345678901234567890124 = {
+			isa = PBXGroup;
+			children = (
+				B12345678901234567890128,
+			);
+			path = AppDelegate.swift;
+			sourceTree = "<group>";
+		};
+		B12345678901234567890125 = {
+			isa = PBXFileReference; 
+			fileEncoding = 4; 
+			lastKnownFileType = sourcecode.swift; 
+			path = AppDelegate.swift; 
+			sourceTree = "<group>"; 
+		};
+		B12345678901234567890126 = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B12345678901234567890127 = {isa = PBXFileReference; lastKnownFileType = folder; path = flutter_assets; sourceTree = "<group>"; };
+		B12345678901234567890128 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B12345678901234567890129 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
+	};
+	rootObject = B12345678901234567890122;
+}
+
