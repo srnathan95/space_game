@@ -40,12 +40,39 @@ class _SpaceGameState extends State<SpaceGame> {
   // Screen size for collision detection
   Size? _screenSize;
 
+  // Preloaded image provider for asteroids
+  ImageProvider? _asteroidImageProvider;
+  bool _isImagePreloaded = false;
+
   @override
   void initState() {
     super.initState();
     _loadHighScore().then((_) {
       _startGame();
     });
+  }
+
+  Future<void> _preloadAsteroidImage(BuildContext context) async {
+    if (!_isImagePreloaded && mounted) {
+      _asteroidImageProvider = const AssetImage('assets/asteroid.png');
+      if (mounted) {
+        try {
+          await precacheImage(_asteroidImageProvider!, context);
+          if (mounted) {
+            setState(() {
+              _isImagePreloaded = true;
+            });
+          }
+        } catch (e) {
+          // If preloading fails, continue anyway - image will load on demand
+          if (mounted) {
+            setState(() {
+              _isImagePreloaded = true;
+            });
+          }
+        }
+      }
+    }
   }
 
   Future<void> _loadHighScore() async {
@@ -61,6 +88,10 @@ class _SpaceGameState extends State<SpaceGame> {
   }
 
   void _startGame() {
+    _initializeGame();
+  }
+
+  void _initializeGame() {
     setState(() {
       _isGameRunning = true;
       _isGameOver = false;
@@ -264,6 +295,15 @@ class _SpaceGameState extends State<SpaceGame> {
     final screenSize = MediaQuery.of(context).size;
     _screenSize = screenSize; // Store screen size for collision detection
 
+    // Preload image if not already done (after first build when context is available)
+    if (!_isImagePreloaded) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _preloadAsteroidImage(context);
+        }
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Space Game'),
@@ -346,11 +386,14 @@ class _SpaceGameState extends State<SpaceGame> {
     return Positioned(
       left: asteroid.x * screenSize.width - 30,
       top: asteroid.y * screenSize.height - 30,
-      child: Image.asset(
-        'assets/asteroid.png',
-        width: 120,
-        height: 120,
-        fit: BoxFit.contain,
+      child: RepaintBoundary(
+        child: Image(
+          image:
+              _asteroidImageProvider ?? const AssetImage('assets/asteroid.png'),
+          width: 120,
+          height: 120,
+          fit: BoxFit.contain,
+        ),
       ),
     );
   }
